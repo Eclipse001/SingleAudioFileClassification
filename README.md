@@ -25,7 +25,7 @@ Use pip to install dependencies of pyAudioAnalysis:
 
 - python train.py [midtermWindow] [midtermStep]
 
-[midtermWindow] and [midtermStep] are the mid-term block size and step used while training the classifier from the samples. (In seconds)
+[midtermWindow] and [midtermStep] are the mid-term block size and step size used while training the classifier from the samples. (In seconds)
 Th resulting svm model as well as its related files will be located in the folder named 'Models', the model file name will be 'svm'. 
 
 - The new trained model will replace the previous one.
