@@ -30,4 +30,4 @@ Th resulting svm model as well as its related files will be located in the folde
 
 - The new trained model will replace the previous one.
 - The model type is SVM.
-- If an 'unknown format" error message pops up during the training, this is probabliy due to sampling rate higher than 48K is not supported. In this case, try to uncomment the line 45 and 46 inside the train.py and redo the training.
+- If an 'unknown format" error message pops up during the training, this is probably due to sampling rate of a audio file is higher than 48K is not supported. In this case, try to uncomment the line 45 and 46 inside the train.py and redo the training.
