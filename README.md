@@ -14,7 +14,7 @@ Use pip to install dependencies of pyAudioAnalysis:
 
 # Pre-setup steps
 
-- Makesure ffmpeg and the pre-requirenments of pyAudioAnalysis are intalled.
+- Makesure ffmpeg and the dependencies of pyAudioAnalysis are intalled.
 - Download this repo.
 - Download the pyAudioAnalysis repo from https://github.com/tyiannak/pyAudioAnalysis and replace the empty folder 'pyAudioAnaysis' inside this repo with the downloaded package.
 
