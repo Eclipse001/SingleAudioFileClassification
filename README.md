@@ -29,13 +29,12 @@ Use pip to install dependencies of pyAudioAnalysis:
 
 [goodFolderPath] and [badFolderPath] are the path of the folders contain the orginal training samples, there must be an ending slash in both of these arguments. For example: 'OrginalSamples/Good' will cause error but 'OrginalSamples/Good/' won't cause error.
 
-[tGoodFolderPath] and [tBadFolderPath] are the path of the folders will contain the training samples that will actually used for training, that is, the copies of content inside [goodFolderPath] and [badFolderPath]. This is to prevent any modifcation of the orginal files while reducing the audio file's sampling rate. These two path must be exist before running the training script. Also, files inside these two folders will be removed after training.
+[tGoodFolderPath] and [tBadFolderPath] are the path of the folders will contain the training samples that will actually used for training, that is, the copies of content inside [goodFolderPath] and [badFolderPath]. This is to prevent any modification of the original files while reducing the audio file's sampling rate. These two path must be exist before running the training script. Also, files inside these two folders will be removed after training. Same as previous arguments, there must be an ending slash in both of these arguments.
 
 Th resulting svm model as well as its related files will be located in the folder named 'Models', the model file name will be 'svm'. 
 
 - The new trained model will replace the previous one.
 - The model type is SVM.
-- If an 'unknown format" error message pops up during the training, this is probably due to sampling rate of a audio file is higher than 48K is not supported. In this case, try to uncomment the line 45 and 46 inside the train.py and redo the training.
 
 # Run the processing script
 
@@ -43,5 +42,5 @@ Th resulting svm model as well as its related files will be located in the folde
 
 [modelPath] and [filePath] are the path to the trained model file and the path to the audio file to be processed.
 
-- The output will be print to stdour, and it will be either 0 or 1, 0 stands for "Good" audio file, 1 stands for "Bad" audio file.
+- The output will be print to stdout, and it will be either 0 or 1, 0 stands for "Good" audio file, 1 stands for "Bad" audio file.
 - If an 'unknown format" error message pops up during the process, this is probably due to sampling rate of a audio file is higher than 48K is not supported. In this case, try to uncomment all of the commented code and redo the process.
