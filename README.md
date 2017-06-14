@@ -23,11 +23,13 @@ Use pip to install dependencies of pyAudioAnalysis:
 
 # Run the training script
 
-- python train.py [midtermWindow] [midtermStep] [goodFolderPath] [badFolderPath]
+- python train.py [midtermWindow] [midtermStep] [goodFolderPath] [badFolderPath] [tGoodFolderPath] [tBadFolderPath]
 
 [midtermWindow] and [midtermStep] are the mid-term block size and step size used while training the classifier from the samples. (In seconds)
 
-[goodFolderPath] and [badFolderPath] are the path of the folder contains the training samples, there must be an ending slash in both of these arguments. For example: 'OrginalSamples/Good' will cause error but 'OrginalSamples/Good/' won't cause error.
+[goodFolderPath] and [badFolderPath] are the path of the folders contain the orginal training samples, there must be an ending slash in both of these arguments. For example: 'OrginalSamples/Good' will cause error but 'OrginalSamples/Good/' won't cause error.
+
+[tGoodFolderPath] and [tBadFolderPath] are the path of the folders will contain the training samples that will actually used for training, that is, the copies of content inside [goodFolderPath] and [badFolderPath]. This is to prevent any modifcation of the orginal files while reducing the audio file's sampling rate. These two path must be exist before running the training script. And, files inside these two folders will be removed after training.
 
 Th resulting svm model as well as its related files will be located in the folder named 'Models', the model file name will be 'svm'. 
 
