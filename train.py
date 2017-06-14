@@ -13,8 +13,12 @@ mts = float(sys.argv[2])            # Command line argument 2 is the mid-term st
 orGoodDirPath = sys.argv[3]         # Command line argument 3 is the folder containing good samples.
 orBadDirPath = sys.argv[4]          # Command line argument 4 is the folder containing bad samples.
 
-goodDirPath = 'Samples/Good/'
-badDirPath = 'Samples/Bad/'
+goodDirPath = sys.argv[5]
+badDirPath = sys.argv[6]
+
+def removeFile(dirPath):
+    for fileName in os.listdir(dirPath):
+        os.remove(dirPath+fileName)
 
 
 def checkSamplingRate(orDirPath, coDirPath):
@@ -50,3 +54,6 @@ checkSamplingRate(orBadDirPath, badDirPath)
 
 
 aT.featureAndTrain([goodDirPath, badDirPath], mtw, mts, aT.shortTermWindow, aT.shortTermStep, 'svm', "Models/svm")
+
+removeFile(goodDirPath)
+removeFile(badDirPath)
