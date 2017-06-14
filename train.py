@@ -1,31 +1,34 @@
 from pyAudioAnalysis import audioTrainTest as aT
 from pyAudioAnalysis import audioSegmentation as aS
 from os import path
+from shutil import copyfile
 
 import os
 import sys
 import time
 import wave
 
-mtw = float(sys.argv[1])        # Command line argument 1 is the mid-term window.
-mts = float(sys.argv[2])        # Command line argument 2 is the mid-term step.
+mtw = float(sys.argv[1])            # Command line argument 1 is the mid-term window.
+mts = float(sys.argv[2])            # Command line argument 2 is the mid-term step.
+orGoodDirPath = sys.argv[3]         # Command line argument 3 is the folder containing good samples.
+orBadDirPath = sys.argv[4]          # Command line argument 4 is the folder containing bad samples.
 
-goodDirPath = "Samples/Good/"
-badDirPath = "Samples/Bad/"
+goodDirPath = 'Samples/Good/'
+badDirPath = 'Samples/Bad/'
 
-def checkSamplingRate(dirPath):
+
+def checkSamplingRate(orDirPath, coDirPath):
     
-    for fileName in os.listdir(dirPath):
-        fullPath = dirPath + fileName
+    for fileName in os.listdir(orDirPath):
+        orFullPath = orDirPath + fileName
+        rFileName = str(time.time())+'.wav'
         
-        if checkFileProp(fullPath):
-            rFileName = str(time.time())+'.wav'
-            
-            print >> sys.stderr, 'Sampling rate too large, replacing the file with a copy of 48K Sampling rate named: ' + rFileName
-            os.system('ffmpeg -i ' + fullPath + ' -ar 48000 ' + dirPath + rFileName)
-            
-            print >> sys.stderr, 'Removing orginal file...'
-            os.remove(fullPath)
+        if checkFileProp(orFullPath):
+            print >> sys.stderr, 'Sampling rate too large, changing to 48K while copying to sample folder.' + rFileName +'...'
+            os.system('ffmpeg -i ' + orFullPath + ' -ar 48000 ' + coDirPath + rFileName)
+        else:
+            print >> sys.stderr, 'Copying to the sample folder as ' + rFileName +'...'
+            copyfile(orFullPath, coDirPath + rFileName)
 
 def checkFileProp(fullPath):
     FLAG_CONVERT_SR = False
@@ -41,9 +44,9 @@ def checkFileProp(fullPath):
     
     return FLAG_CONVERT_SR
 
-'''
-checkSamplingRate(goodDirPath)
-checkSamplingRate(badDirPath)
-'''
+
+checkSamplingRate(orGoodDirPath, goodDirPath)
+checkSamplingRate(orBadDirPath, badDirPath)
+
 
 aT.featureAndTrain([goodDirPath, badDirPath], mtw, mts, aT.shortTermWindow, aT.shortTermStep, 'svm', "Models/svm")
