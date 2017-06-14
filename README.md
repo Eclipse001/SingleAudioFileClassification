@@ -29,7 +29,7 @@ Use pip to install dependencies of pyAudioAnalysis:
 
 [goodFolderPath] and [badFolderPath] are the path of the folders contain the orginal training samples, there must be an ending slash in both of these arguments. For example: 'OrginalSamples/Good' will cause error but 'OrginalSamples/Good/' won't cause error.
 
-[tGoodFolderPath] and [tBadFolderPath] are the path of the folders will contain the training samples that will actually used for training, that is, the copies of content inside [goodFolderPath] and [badFolderPath]. This is to prevent any modifcation of the orginal files while reducing the audio file's sampling rate. These two path must be exist before running the training script. And, files inside these two folders will be removed after training.
+[tGoodFolderPath] and [tBadFolderPath] are the path of the folders will contain the training samples that will actually used for training, that is, the copies of content inside [goodFolderPath] and [badFolderPath]. This is to prevent any modifcation of the orginal files while reducing the audio file's sampling rate. These two path must be exist before running the training script. Also, files inside these two folders will be removed after training.
 
 Th resulting svm model as well as its related files will be located in the folder named 'Models', the model file name will be 'svm'. 
 
