@@ -8,7 +8,7 @@
 - pyAudioAnalysis : https://github.com/tyiannak/pyAudioAnalysis
 - ffmpeg
 
-- Python 3.6 for Conv1d model.
+- Python 3.6 and keras for Conv1d model.
 
 Use pip to install dependencies of pyAudioAnalysis:
 
