@@ -30,8 +30,7 @@ if FLAG_CONVERT_SR:
 '''
 #===============================================================
 
-res = "Good"
-rawRes = aT.fileClassification(filePath, modelPath, 'svm')[0]
+res = aT.fileClassification(filePath, modelPath, 'svm')
 
 #===============================================================
 '''
@@ -44,6 +43,5 @@ if FLAG_CONVERT_SR:
 if rawRes == 1:
     res = "Bad"
 
-print >> sys.stderr, "Result for file: " + fileName + " is " + res + '.'
-print str(int(rawRes))+'\n'
+print >> sys.stderr, "Result for file: " + fileName + " is " + str(res) + '.'
 

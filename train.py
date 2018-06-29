@@ -8,39 +8,39 @@ import sys
 import time
 import wave
 
-mtw = float(sys.argv[1])            # Command line argument 1 is the mid-term window.
-mts = float(sys.argv[2])            # Command line argument 2 is the mid-term step.
-orGoodDirPath = sys.argv[3]         # Command line argument 3 is the folder containing good samples.
-orBadDirPath = sys.argv[4]          # Command line argument 4 is the folder containing bad samples.
+mtw = float(sys.argv[1])                # Command line argument 1 is the mid-term window.
+mts = float(sys.argv[2])                # Command line argument 2 is the mid-term step.
+oClassADirectory = sys.argv[3]          # Command line argument 3 is the folder containing class A samples.
+oClassBDirectory = sys.argv[4]          # Command line argument 4 is the folder containing class B samples.
 
-goodDirPath = sys.argv[5]
-badDirPath = sys.argv[6]
+classADirectory = oClassADirectory + '-processed'
+classBDirectory = oClassBDirectory + '-processed'
 
-def removeFile(dirPath):
+def removeDirectory(dirPath):
     for fileName in os.listdir(dirPath):
         os.remove(dirPath+fileName)
 
 
-def checkSamplingRate(orDirPath, coDirPath):
+def preprocess(orginalDirectory, resDirectory):
     
     for fileName in os.listdir(orDirPath):
-        orFullPath = orDirPath + fileName
-        rFileName = str(time.time())+'.wav'
+        fileFullPath = orginalDirectory + '/' + fileName
+        resFileName = str(time.time())+'.wav'
         
         if checkFileProp(orFullPath):
-            print >> sys.stderr, 'Sampling rate too large, changing to 48K while copying to sample folder.' + rFileName +'...'
-            os.system('ffmpeg -i ' + orFullPath + ' -ar 48000 ' + coDirPath + rFileName)
+            print >> sys.stderr, 'Sampling rate too large, changing to 48K while copying to sample folder: ' + rFileName +'...'
+            os.system('ffmpeg -i ' + fileFullPath + ' -ar 48000 ' + resDirectory + '/' + resFileName)
         else:
-            print >> sys.stderr, 'Copying to the sample folder as ' + rFileName +'...'
-            copyfile(orFullPath, coDirPath + rFileName)
+            print >> sys.stderr, 'Copying to the tmp folder as ' + resFileName + '...'
+            copyfile(fileFullPath, resDirectory + resFileName)
 
-def checkFileProp(fullPath):
+def checkFileProp(filePath):
     FLAG_CONVERT_SR = False
     
-    print >> sys.stderr, 'Checking training set file: '+fullPath.split("/")[-1]+'...'
+    print >> sys.stderr, 'Checking training set file: ' + filePath.split("/")[-1] + '...'
     
     try:
-        sr = wave.openfp(fullPath, 'r').getframerate()
+        sr = wave.openfp(filePath, 'r').getframerate()
         if sr > 48000:
             FLAG_CONVERT_SR = True
     except:
@@ -49,11 +49,10 @@ def checkFileProp(fullPath):
     return FLAG_CONVERT_SR
 
 
-checkSamplingRate(orGoodDirPath, goodDirPath)
-checkSamplingRate(orBadDirPath, badDirPath)
-
+preprocess(oClassADirectory, classADirectory)
+preprocess(oclassBDirectory, classBDirectory)
 
 aT.featureAndTrain([goodDirPath, badDirPath], mtw, mts, aT.shortTermWindow, aT.shortTermStep, 'svm', "Models/svm")
 
-removeFile(goodDirPath)
-removeFile(badDirPath)
+removeDirectory(classADirectory)
+removeDirectory(classBDirectory)
