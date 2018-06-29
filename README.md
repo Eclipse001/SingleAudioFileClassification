@@ -42,5 +42,5 @@ Th resulting svm model as well as its related files will be located in the folde
 
 - python3 conv1d.py [classAFolder] [classBFolder]
 
-### This model is not fully implemented for now, directly feeding raw signal of .wav files without any preprocessing may cause the system run out of memory. Apply zero padding to the audio files which has shorter length may not be a good idea as well.
+- ### This model is not fully implemented for now, directly feeding raw signal of .wav files without any preprocessing may cause the system run out of memory. Apply zero padding to the audio files which has shorter length may not be a good idea as well.
 
