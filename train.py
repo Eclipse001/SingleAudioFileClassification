@@ -18,7 +18,7 @@ classBDirectory = oClassBDirectory + '-processed'
 
 def removeDirectory(dirPath):
     for fileName in os.listdir(dirPath):
-        os.remove(dirPath+fileName)
+        os.remove(dirPath + '/' +fileName)
 
 
 def preprocess(orginalDirectory, resDirectory):
@@ -32,7 +32,7 @@ def preprocess(orginalDirectory, resDirectory):
             os.system('ffmpeg -i ' + fileFullPath + ' -ar 48000 ' + resDirectory + '/' + resFileName)
         else:
             print >> sys.stderr, 'Copying to the tmp folder as ' + resFileName + '...'
-            copyfile(fileFullPath, resDirectory + resFileName)
+            copyfile(fileFullPath, resDirectory + '/' + resFileName)
 
 def checkFileProp(filePath):
     FLAG_CONVERT_SR = False
